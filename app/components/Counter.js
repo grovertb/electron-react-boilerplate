@@ -6,17 +6,18 @@ import routes from '../constants/routes.json'
 
 type Props = {
   increment: () => void,
-  incrementIfOdd: () => void,
-  incrementAsync: () => void,
-  decrement: () => void,
-  counter: number
+  decrement: () => void
 }
 
 export default class Counter extends Component<Props> {
   props: Props
 
   render() {
-    const { increment, incrementIfOdd, incrementAsync, decrement, counter } = this.props
+    const {
+      increment,
+      decrement,
+      counter: { counter }
+    } = this.props
 
     return (
       <div>
@@ -38,16 +39,6 @@ export default class Counter extends Component<Props> {
             className={styles.btn} data-tclass='btn' onClick={decrement}
             type='button'>
             <i className='fa fa-minus' />
-          </button>
-          <button
-            className={styles.btn} data-tclass='btn' onClick={incrementIfOdd}
-            type='button'>
-            odd
-          </button>
-          <button
-            className={styles.btn} data-tclass='btn' onClick={() => incrementAsync()}
-            type='button'>
-            async
           </button>
         </div>
       </div>

@@ -2,11 +2,10 @@ import React from 'react'
 import { render } from 'react-dom'
 import { AppContainer } from 'react-hot-loader'
 import Root from './containers/Root'
-import { configureStore, history } from './store/configureStore'
-import createRoutes from './Routes'
+import store, { history } from './store/configureStore'
+import createRoutes from './routes'
 import './app.global.css'
 
-const store = configureStore()
 const routes = createRoutes(history)
 
 render(

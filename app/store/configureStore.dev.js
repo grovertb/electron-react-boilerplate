@@ -1,64 +1,25 @@
 import { createStore, applyMiddleware, compose } from 'redux'
-import thunk from 'redux-thunk'
-import { createHashHistory } from 'history'
-import { routerMiddleware, routerActions } from 'react-router-redux'
 import { createLogger } from 'redux-logger'
-import rootReducer from '../reducers'
-import * as counterActions from '../actions/counter'
-import type { counterStateType } from '../reducers/types'
+import { routerMiddleware } from 'react-router-redux'
+import { createHashHistory } from 'history'
+// import createHashHistory from 'history/createBrowserHistory'
+import createSagaMiddleware from 'redux-saga'
 
-const history = createHashHistory()
+import reducers from '../reducers'
+import rootSaga from '../sagas'
 
-const configureStore = (initialState?: counterStateType) => {
-  // Redux Configuration
-  const middleware = []
-  const enhancers = []
+export const history = createHashHistory()
 
-  // Thunk Middleware
-  middleware.push(thunk)
+const initialState = {}
+const sagaMiddleware = createSagaMiddleware()
+const middleware = [ sagaMiddleware, routerMiddleware(history), createLogger() ]
+const finalCreateStore = compose(
+  applyMiddleware(...middleware)
+  // DevTools.instrument()
+)
 
-  // Logging Middleware
-  const logger = createLogger({
-    level    : 'info',
-    collapsed: true
-  })
+const store = createStore(reducers, initialState, finalCreateStore)
 
-  // Skip redux logs in console during the tests
-  if(process.env.NODE_ENV !== 'test') middleware.push(logger)
+sagaMiddleware.run(rootSaga)
 
-  // Router Middleware
-  const router = routerMiddleware(history)
-  middleware.push(router)
-
-  // Redux DevTools Configuration
-  const actionCreators = {
-    ...counterActions,
-    ...routerActions
-  }
-  // If Redux DevTools Extension is installed use it, otherwise use Redux compose
-  /* eslint-disable no-underscore-dangle */
-  const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
-    ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
-      // Options: http://extension.remotedev.io/docs/API/Arguments.html
-      actionCreators
-    })
-    : compose
-  /* eslint-enable no-underscore-dangle */
-
-  // Apply Middleware & Compose Enhancers
-  enhancers.push(applyMiddleware(...middleware))
-  const enhancer = composeEnhancers(...enhancers)
-
-  // Create Store
-  const store = createStore(rootReducer, initialState, enhancer)
-
-  if(module.hot)
-    module.hot.accept(
-      '../reducers',
-      () => store.replaceReducer(require('../reducers')) // eslint-disable-line global-require
-    )
-
-  return store
-}
-
-export default { configureStore, history }
+export default store
