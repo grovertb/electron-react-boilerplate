@@ -8,8 +8,8 @@ import { HomePage, CounterPage } from '../containers'
 export default history => (
   <ConnectedRouter history={history}>
     <Switch>
-      <Route component={CounterPage} path={routes.COUNTER} />
       <Route component={HomePage} path={routes.HOME} />
+      <Route component={CounterPage} path={routes.COUNTER} />
     </Switch>
   </ConnectedRouter>
 )

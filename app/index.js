@@ -1,6 +1,7 @@
 import React from 'react'
 import { render } from 'react-dom'
 import { AppContainer } from 'react-hot-loader'
+
 import Root from './containers/Root'
 import store, { history } from './store/configureStore'
 import createRoutes from './routes'
