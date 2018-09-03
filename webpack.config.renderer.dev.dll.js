@@ -4,16 +4,16 @@
  * Builds the DLL for development electron renderer process
  */
 
-import webpack from 'webpack';
-import path from 'path';
-import merge from 'webpack-merge';
-import baseConfig from './webpack.config.base';
-import { dependencies } from './package.json';
-import CheckNodeEnv from './internals/scripts/CheckNodeEnv';
+import webpack from 'webpack'
+import path from 'path'
+import merge from 'webpack-merge'
+import baseConfig from './webpack.config.base'
+import { dependencies } from './package.json'
+import CheckNodeEnv from './internals/scripts/CheckNodeEnv'
 
-CheckNodeEnv('development');
+CheckNodeEnv('development')
 
-const dist = path.resolve(process.cwd(), 'dll');
+const dist = path.resolve(process.cwd(), 'dll')
 
 export default merge.smart(baseConfig, {
   context: process.cwd(),
@@ -24,7 +24,7 @@ export default merge.smart(baseConfig, {
 
   target: 'electron-renderer',
 
-  externals: ['fsevents', 'crypto-browserify'],
+  externals: [ 'fsevents', 'crypto-browserify' ],
 
   /**
    * Use `module` from `webpack.config.renderer.dev.js`
@@ -32,15 +32,13 @@ export default merge.smart(baseConfig, {
   module: require('./webpack.config.renderer.dev').module,
 
   entry: {
-    renderer: Object.keys(dependencies || {}).filter(
-      dependency => dependency !== '@fortawesome/fontawesome-free'
-    )
+    renderer: Object.keys(dependencies || {}).filter(dependency => dependency !== '@fortawesome/fontawesome-free')
   },
 
   output: {
-    library: 'renderer',
-    path: dist,
-    filename: '[name].dev.dll.js',
+    library      : 'renderer',
+    path         : dist,
+    filename     : '[name].dev.dll.js',
     libraryTarget: 'var'
   },
 
@@ -64,13 +62,13 @@ export default merge.smart(baseConfig, {
     }),
 
     new webpack.LoaderOptionsPlugin({
-      debug: true,
+      debug  : true,
       options: {
         context: path.resolve(process.cwd(), 'app'),
-        output: {
+        output : {
           path: path.resolve(process.cwd(), 'dll')
         }
       }
     })
   ]
-});
+})
