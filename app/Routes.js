@@ -1,11 +1,11 @@
 /* eslint flowtype-errors/show-errors: 0 */
-import React from 'react';
-import { Switch, Route } from 'react-router';
-import routes from './constants/routes.json';
-import App from './containers/App';
-import HomePage from './containers/app/HomePage';
-import CounterPage from './containers/app/CounterPage';
-import PruebaPage from './containers/app/PruebaPage';
+import React from 'react'
+import { Switch, Route } from 'react-router'
+import routes from './constants/routes.json'
+import App from './containers/App'
+import HomePage from './containers/app/HomePage'
+import CounterPage from './containers/app/CounterPage'
+import PruebaPage from './containers/app/PruebaPage'
 
 export default () => (
   <App>
@@ -15,4 +15,4 @@ export default () => (
       <Route component={HomePage} initial path={routes.HOME} />
     </Switch>
   </App>
-);
+)

@@ -1,15 +1,8 @@
 // @flow
-// import React, { Component } from 'react'
-import { connect } from 'react-redux';
+import { connect } from 'react-redux'
 
-import Prueba from '../../components/Prueba';
-import counterDucks from '../../reducers/counter';
-
-// class PruebaPage extends Component<Props> {
-//   render() {
-//     return <Prueba />
-//   }
-// }
+import Prueba from '../../components/Prueba'
+import counterDucks from '../../reducers/counter'
 
 export default connect(
   ({ counter }) => ({
@@ -19,4 +12,4 @@ export default connect(
     increment: counterDucks.creators.increment,
     decrement: counterDucks.creators.decrement
   }
-)(Prueba);
+)(Prueba)
