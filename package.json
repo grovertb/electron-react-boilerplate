@@ -36,11 +36,11 @@
   "lint-staged": {
     "*.(js|jsx)": [
       "cross-env NODE_ENV=development eslint --cache --format=node_modules/eslint-formatter-pretty",
-      "prettier --ignore-path .eslintignore --single-quote --write",
+      "prettier-eslint --ignore-path .eslintignore --single-quote --write",
       "git add"
     ],
     "*.(json|css|scss|md)|.(babelrc|prettierrc|eslintrc)": [
-      "prettier --ignore-path .eslintignore --write",
+      "prettier-eslint --ignore-path .eslintignore --write",
       "git add"
     ]
   },
@@ -187,6 +187,7 @@
     "npm-logical-tree": "^1.2.1",
     "optimize-css-assets-webpack-plugin": "^5.0.0",
     "prettier": "^1.14.0",
+    "prettier-eslint-cli": "^4.7.1",
     "react-test-renderer": "^16.4.1",
     "redux-logger": "^3.0.6",
     "rimraf": "^2.6.2",
