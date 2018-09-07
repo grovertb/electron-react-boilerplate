@@ -24,9 +24,7 @@ const configureStore = (initialState?: counterStateType) => {
   });
 
   // Skip redux logs in console during the tests
-  if (process.env.NODE_ENV !== 'test') {
-    middleware.push(logger);
-  }
+  if (process.env.NODE_ENV !== 'test') middleware.push(logger);
 
   // Router Middleware
   const router = routerMiddleware(history);
@@ -54,12 +52,11 @@ const configureStore = (initialState?: counterStateType) => {
   // Create Store
   const store = createStore(rootReducer, initialState, enhancer);
 
-  if (module.hot) {
+  if (module.hot)
     module.hot.accept(
       '../reducers',
       () => store.replaceReducer(require('../reducers')) // eslint-disable-line global-require
     );
-  }
 
   return store;
 };

@@ -9,19 +9,18 @@ const store = configureStore();
 
 render(
   <AppContainer>
-    <Root store={store} history={history} />
+    <Root history={history} store={store} />
   </AppContainer>,
   document.getElementById('root')
 );
 
-if (module.hot) {
+if (module.hot)
   module.hot.accept('./containers/Root', () => {
     const NextRoot = require('./containers/Root'); // eslint-disable-line global-require
     render(
       <AppContainer>
-        <NextRoot store={store} history={history} />
+        <NextRoot history={history} store={store} />
       </AppContainer>,
       document.getElementById('root')
     );
   });
-}

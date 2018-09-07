@@ -47,18 +47,15 @@ const installExtensions = async () => {
 app.on('window-all-closed', () => {
   // Respect the OSX convention of having the application in memory even
   // after all windows have been closed
-  if (process.platform !== 'darwin') {
-    app.quit();
-  }
+  if (process.platform !== 'darwin') app.quit();
 });
 
 app.on('ready', async () => {
   if (
     process.env.NODE_ENV === 'development' ||
     process.env.DEBUG_PROD === 'true'
-  ) {
+  )
     await installExtensions();
-  }
 
   mainWindow = new BrowserWindow({
     show: false,
@@ -71,9 +68,8 @@ app.on('ready', async () => {
   // @TODO: Use 'ready-to-show' event
   //        https://github.com/electron/electron/blob/master/docs/api/browser-window.md#using-ready-to-show-event
   mainWindow.webContents.on('did-finish-load', () => {
-    if (!mainWindow) {
-      throw new Error('"mainWindow" is not defined');
-    }
+    if (!mainWindow) throw new Error('"mainWindow" is not defined');
+
     if (process.env.START_MINIMIZED) {
       mainWindow.minimize();
     } else {
